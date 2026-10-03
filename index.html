@@ -4,16 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Keyboard</title>
+  <title>Keychron Q6 Max</title>
   <meta name="description" content="">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Keyboard">
+  <meta property="og:title" content="Keychron Q6 Max">
   <meta property="og:description" content="">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="product">
   <meta property="og:image" content="">
 
-  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&family=IBM+Plex+Sans:wght@400;700&family=IBM+Plex+Mono&family=Blinker&display=swap"
+    rel="stylesheet">
 
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
@@ -21,19 +25,168 @@
 <body>
 
   <header class="site-header">
-    <nav class="nav">
-      <a class="nav__logo" href="#">Logo</a>
-      <ul class="nav__list">
-        <li><a href="#features">Features</a></li>
-        <li><a href="#specs">Specs</a></li>
-        <li><a href="#buy">Kaufen</a></li>
-      </ul>
-    </nav>
+    <div class="nav">
+      <a class="nav__logo" href="#">Keychron</a>
+
+      <nav class="nav__menu" aria-label="Hauptnavigation">
+        <ul class="nav__list">
+          <li><a href="#">Tastaturen</a></li>
+          <li><a href="#">Mäuse</a></li>
+        </ul>
+
+        <a class="nav__icon" href="#" aria-label="Einkaufswagen">
+          <img src="assets/icons/cart.svg" alt="" width="24" height="24">
+        </a>
+        <a class="nav__icon" href="#" aria-label="Konto">
+          <img src="assets/icons/user.svg" alt="" width="24" height="24">
+        </a>
+      </nav>
+    </div>
   </header>
 
   <main>
 
+    <!-- ============ HERO / PRODUKT ============ -->
     <section class="hero" id="hero">
+      <article class="product">
+
+        <!-- ---------- Bühne: Produktbild ---------- -->
+        <div class="stage">
+          <span class="stage__glow" aria-hidden="true"></span>
+
+          <img class="stage__swoosh" src="assets/images/swoosh.svg" alt=""
+               width="729" height="375">
+
+          <div class="stage__keyboard">
+            <img src="assets/images/keyboard.png"
+                 alt="Keychron Q6 Max in Schwarz mit roten, weißen und orangen Keycaps, schräg von oben"
+                 width="1752" height="897" fetchpriority="high">
+          </div>
+
+          <img class="stage__swoosh-tip" src="assets/images/swoosh-tip.svg" alt=""
+               width="123" height="38">
+        </div>
+
+        <!-- ---------- Panel: Infos + Konfigurator ---------- -->
+        <div class="panel">
+
+          <header class="product__header">
+            <h1 class="product__title">Keychron Q6 Max</h1>
+            <p class="product__sku">SKU: <span data-sku>Q6M-M1-DE</span></p>
+          </header>
+
+          <div class="product__pricing">
+            <p class="price"><data value="249.99">249,99&nbsp;&euro;</data></p>
+            <p class="price__note">
+              inkl. MwSt. &middot; Auf Lager
+              <span class="stock-dot" aria-hidden="true"></span>
+            </p>
+          </div>
+
+          <form class="configurator" action="/cart" method="post">
+
+            <!-- Layout -->
+            <fieldset class="option">
+              <legend class="option__label">Layout</legend>
+              <div class="option__choices">
+                <label class="choice">
+                  <input type="radio" name="layout" value="de-iso" checked>
+                  <span class="choice__text">DE-ISO</span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="layout" value="uk-iso">
+                  <span class="choice__text">UK-ISO</span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="layout" value="nordic-iso">
+                  <span class="choice__text">Nordic-ISO</span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="layout" value="swiss-iso">
+                  <span class="choice__text">Swiss-ISO</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Farben -->
+            <fieldset class="option option--swatches">
+              <legend class="option__label">Farben</legend>
+              <div class="option__choices">
+                <label class="swatch">
+                  <input type="radio" name="color" value="ice-blue">
+                  <img src="assets/images/swatch-blue.svg" alt="" width="34" height="34">
+                  <span class="visually-hidden">Ice Blue</span>
+                </label>
+                <label class="swatch">
+                  <input type="radio" name="color" value="sunset" checked>
+                  <img src="assets/images/swatch-magenta.svg" alt="" width="34" height="34">
+                  <span class="visually-hidden">Sunset</span>
+                </label>
+                <label class="swatch">
+                  <input type="radio" name="color" value="olive">
+                  <img src="assets/images/swatch-olive.svg" alt="" width="34" height="34">
+                  <span class="visually-hidden">Olive</span>
+                </label>
+                <label class="swatch">
+                  <input type="radio" name="color" value="violet">
+                  <img src="assets/images/swatch-violet.svg" alt="" width="34" height="34">
+                  <span class="visually-hidden">Violet</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Switches -->
+            <fieldset class="option option--switches">
+              <legend class="option__label">Switches</legend>
+              <div class="option__choices">
+                <label class="choice">
+                  <input type="radio" name="switch" value="red">
+                  <span class="choice__dot" style="--dot: #e63329; --dot-border: #8d201a" aria-hidden="true"></span>
+                  <span class="choice__text">Red (Linear)</span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="switch" value="jupiter" checked>
+                  <span class="choice__dot" style="--dot: #ffc21f; --dot-border: #806111" aria-hidden="true"></span>
+                  <span class="choice__text">Jupiter (Silent)</span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="switch" value="blue">
+                  <span class="choice__dot" style="--dot: #0088b0; --dot-border: #006481" aria-hidden="true"></span>
+                  <span class="choice__text">Blue (Tactile)</span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="switch" value="brown">
+                  <span class="choice__dot" style="--dot: #511f00; --dot-border: #3b1803" aria-hidden="true"></span>
+                  <span class="choice__text">Brown</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Menge + CTA -->
+            <div class="purchase-block">
+              <div class="purchase">
+                <div class="qty">
+                  <button class="qty__btn" type="button" data-step="-1" aria-label="Menge verringern">-</button>
+                  <input class="qty__input" type="number" name="quantity" value="1"
+                         min="1" max="10" step="1" inputmode="numeric" aria-label="Menge">
+                  <button class="qty__btn" type="button" data-step="1" aria-label="Menge erhöhen">+</button>
+                </div>
+
+                <button class="btn btn--primary" type="submit">In den Einkaufswagen</button>
+              </div>
+
+              <p class="delivery">
+                <img class="delivery__icon" src="assets/icons/truck.svg" alt="" width="16" height="16">
+                Geschätztes Lieferdatum:
+                <time datetime="2026-09-04">4. Sept.</time> &ndash;
+                <time datetime="2026-09-05">5. Sept.</time>
+              </p>
+            </div>
+
+          </form>
+        </div>
+
+      </article>
     </section>
 
     <section class="features" id="features">

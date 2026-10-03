@@ -2,85 +2,65 @@
 
 :root {
   /* Farben */
-  --color-bg: #0e0e10;
-  --color-surface: #17171a;
-  --color-text: #f2f2f2;
-  --color-muted: #a1a1aa;
-  --color-accent: #e5533d;
-  --color-border: #2a2a2e;
+  --color-page: #ffffff;
+  --color-card: #000000;
+  --color-panel: rgb(4 4 4 / 0.9);
+  --color-header: #040404;
+  --color-text: #fff6f6;
+  --color-muted: #939393;
+  --color-border: #adaaaa;
+  --color-selected: rgb(255 255 255 / 0.1);
 
   /* Typografie */
-  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-heading: var(--font-body);
+  --font-display: "Kumbh Sans", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-nav: "Blinker", system-ui, sans-serif;
 
-  --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);
-  --step-0: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-  --step-1: clamp(1.25rem, 1.1rem + 0.7vw, 1.6rem);
-  --step-2: clamp(1.6rem, 1.3rem + 1.4vw, 2.4rem);
-  --step-3: clamp(2rem, 1.5rem + 2.5vw, 3.8rem);
+  --step-title: clamp(2rem, 1.4rem + 1.8vw, 2.7rem);
+  --step-price: 1.6rem;
+  --step-label: 1.13rem;
+  --step-body: 0.86rem;
+  --step-note: 0.65rem;
+  --step-sku: 0.65rem;
+
+  /* Layout */
+  --card-max: 1347px;
+  --panel-width: 536px;
+  --panel-pad: 37px;
+  --gutter: 1.5rem;
 
   /* Spacing */
-  --space-xs: 0.5rem;
+  --space-xs: 0.65rem;
   --space-sm: 1rem;
-  --space-md: 2rem;
+  --space-md: 1.6rem;
   --space-lg: 4rem;
   --space-xl: 8rem;
 
-  /* Layout */
-  --container: 1200px;
-  --gutter: 1.5rem;
-  --radius: 12px;
-
   /* Motion */
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
-  --duration: 300ms;
+  --duration: 250ms;
 }
 
 /* ---------- Base ---------- */
 
 body {
   font-family: var(--font-body);
-  font-size: var(--step-0);
   color: var(--color-text);
-  background-color: var(--color-bg);
-}
-
-h1 {
-  font-size: var(--step-3);
-}
-
-h2 {
-  font-size: var(--step-2);
-}
-
-h3 {
-  font-size: var(--step-1);
+  background-color: var(--color-page);
 }
 
 a {
-  transition: color var(--duration) var(--ease);
+  transition: opacity var(--duration) var(--ease);
 }
 
 a:hover {
-  color: var(--color-accent);
+  opacity: 0.7;
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-text);
   outline-offset: 3px;
-}
-
-/* ---------- Layout ---------- */
-
-.container {
-  width: 100%;
-  max-width: var(--container);
-  margin-inline: auto;
-  padding-inline: var(--gutter);
-}
-
-main > section {
-  padding-block: var(--space-xl);
 }
 
 /* ---------- Header ---------- */
@@ -89,6 +69,8 @@ main > section {
   position: sticky;
   top: 0;
   z-index: 100;
+  background-color: var(--color-header);
+  box-shadow: 0 0 4px 2px rgb(255 255 255 / 0.05);
 }
 
 .nav {
@@ -96,35 +78,352 @@ main > section {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-md);
-  max-width: var(--container);
-  margin-inline: auto;
-  padding: var(--space-sm) var(--gutter);
+  height: 67px;
+  padding-inline: 20px 30px;
+}
+
+.nav__logo {
+  font-family: var(--font-display);
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.nav__menu {
+  display: flex;
+  align-items: center;
+  gap: 32px;
 }
 
 .nav__list {
   display: flex;
+  gap: 32px;
+  font-family: var(--font-nav);
+  font-size: 1rem;
+  color: #fff;
+}
+
+.nav__icon img {
+  width: 24px;
+  height: 24px;
+}
+
+/* ---------- Hero / Produkt ---------- */
+
+.hero {
+  padding: var(--space-lg) var(--gutter);
+}
+
+.product {
+  display: grid;
+  grid-template-columns: 1fr var(--panel-width);
+  max-width: var(--card-max);
+  margin-inline: auto;
+  background-color: var(--color-card);
+}
+
+/* Bühne (Bild, Swoosh, Glow) */
+
+.stage {
+  position: relative;
+  aspect-ratio: 811 / 590;
+  overflow: hidden;
+}
+
+/* weicher Lichtschein hinter der Tastatur */
+.stage__glow {
+  position: absolute;
+  left: 10.1%;
+  top: 37.5%;
+  width: 79.4%;
+  height: 39.3%;
+  background-color: rgb(217 217 217 / 0.3);
+  filter: blur(87.65px);
+  rotate: 6.21deg;
+}
+
+.stage__swoosh {
+  position: absolute;
+  left: 12.74%;
+  top: 41.36%;
+  width: 89.85%;
+  height: auto;
+  scale: 1 -1;
+}
+
+.stage__keyboard {
+  position: absolute;
+  left: 1.17%;
+  top: 26.1%;
+  width: 86.9%;
+  height: 43.7%;
+  overflow: hidden;
+  rotate: 3.12deg;
+}
+
+.stage__keyboard img {
+  width: 100%;
+  height: auto;
+  margin-top: -18.6%;
+}
+
+/* Spitze des Swoosh, die vor der Tastatur liegt */
+.stage__swoosh-tip {
+  position: absolute;
+  left: 14.9%;
+  top: 58.6%;
+  width: 15.1%;
+  height: auto;
+}
+
+/* ---------- Panel ---------- */
+
+.panel {
+  display: grid;
+  align-content: start;
   gap: var(--space-md);
+  padding: 33px var(--panel-pad) var(--panel-pad);
+  background-color: var(--color-panel);
+}
+
+.product__title {
+  font-family: var(--font-display);
+  font-size: var(--step-title);
+  font-weight: 700;
+}
+
+.product__sku,
+.price__note,
+.delivery {
+  font-family: var(--font-mono);
+  font-size: var(--step-sku);
+  color: var(--color-muted);
+}
+
+.product__sku {
+  margin-top: 0.4rem;
+}
+
+.price {
+  font-family: var(--font-display);
+  font-size: var(--step-price);
+  font-weight: 700;
+}
+
+.price__note {
+  margin-top: 0.3rem;
+}
+
+.stock-dot {
+  display: inline-block;
+  width: 2.6px;
+  height: 2.6px;
+  margin-left: 0.4em;
+  vertical-align: middle;
+  border-radius: 50%;
+  background-color: #00820f;
+}
+
+/* ---------- Konfigurator ---------- */
+
+.configurator {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.option {
+  border: none;
+}
+
+.option__label {
+  margin-bottom: 0.9rem;
+  font-size: var(--step-label);
+  font-weight: 700;
+}
+
+.option__choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Radios verstecken, Label stylen */
+
+.choice input,
+.swatch input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.choice {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 6px;
+  font-size: var(--step-body);
+  color: var(--color-border);
+  border: 1.723px solid var(--color-border);
+  cursor: pointer;
+  transition: color var(--duration) var(--ease),
+              border-color var(--duration) var(--ease),
+              background-color var(--duration) var(--ease);
+}
+
+.option--switches .choice {
+  padding-block: 4px;
+}
+
+.choice:hover {
+  color: var(--color-text);
+  border-color: var(--color-text);
+}
+
+.choice:has(:checked) {
+  color: #fff;
+  background-color: var(--color-selected);
+  border-color: #fff;
+}
+
+.choice:has(:disabled) {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Fokus-Ring aufs Label durchreichen */
+.choice:has(:focus-visible),
+.swatch:has(:focus-visible) {
+  outline: 2px solid var(--color-text);
+  outline-offset: 3px;
+}
+
+.choice__dot {
+  width: 10.341px;
+  height: 10.341px;
+  border: 0.862px solid var(--dot-border);
+  border-radius: 50%;
+  background-color: var(--dot);
+}
+
+/* Farb-Swatches: nicht gewählte werden abgedunkelt */
+
+.option--swatches .option__choices {
+  gap: 18px;
+}
+
+.swatch {
+  display: block;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: filter var(--duration) var(--ease);
+  filter: brightness(0.5);
+}
+
+.swatch img {
+  width: 33.6px;
+  height: 33.6px;
+  rotate: 30deg;
+}
+
+.swatch:hover,
+.swatch:has(:checked) {
+  filter: none;
+}
+
+/* ---------- Menge + CTA ---------- */
+
+.purchase-block {
+  display: grid;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.purchase {
+  display: flex;
+  gap: 10px;
+}
+
+.qty {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 79px;
+  padding: 7px 10px;
+  border: 1.723px solid var(--color-text);
+}
+
+.qty__btn {
+  font-size: var(--step-body);
+  line-height: 1.2;
+  color: var(--color-text);
+  transition: opacity var(--duration) var(--ease);
+}
+
+.qty__btn:hover {
+  opacity: 0.7;
+}
+
+.qty__input {
+  width: 2ch;
+  padding: 0;
+  font-size: 0.75rem;
+  text-align: center;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  appearance: textfield;
+}
+
+.qty__input::-webkit-inner-spin-button,
+.qty__input::-webkit-outer-spin-button {
+  appearance: none;
+}
+
+.btn {
+  flex: 1;
+  padding: 7px 10px;
+  font-size: var(--step-body);
+  letter-spacing: -0.04em;
+  transition: opacity var(--duration) var(--ease);
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+.btn--primary {
+  color: #000;
+  background-color: #fff;
+  border: 1.723px solid var(--color-text);
+}
+
+/* ---------- Lieferung ---------- */
+
+.delivery {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.delivery__icon {
+  flex: none;
+  width: 16px;
+  height: 16px;
 }
 
 /* ---------- Sections ---------- */
 
-.hero {
-}
-
-.features {
-}
-
-.specs {
-}
-
+.features,
+.specs,
 .buy {
+  padding-block: var(--space-xl);
 }
 
 /* ---------- Footer ---------- */
 
 .site-footer {
   padding-block: var(--space-md);
-  border-top: 1px solid var(--color-border);
 }
 
 /* ---------- Utilities ---------- */
@@ -142,5 +441,49 @@ main > section {
 
 /* ---------- Media Queries ---------- */
 
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
+  :root {
+    --panel-width: 440px;
+  }
+}
+
+@media (max-width: 900px) {
+  .product {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding-inline: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --panel-pad: 20px;
+  }
+
+  .nav {
+    padding-inline: 16px;
+  }
+
+  .nav__logo {
+    font-size: 1.4rem;
+  }
+
+  .nav__menu {
+    gap: 14px;
+  }
+
+  .nav__list {
+    gap: 14px;
+    font-size: 0.85rem;
+  }
+
+  .purchase {
+    flex-wrap: wrap;
+  }
+
+  .btn--primary {
+    flex-basis: 100%;
+  }
 }

@@ -179,6 +179,20 @@ a:hover {
   rotate: 3.12deg;
 }
 
+/* Farbvarianten (Bildtausch in js/main.js) */
+
+/* Die PNG-Swooshes sind bereits gespiegelt exportiert */
+.stage:not([data-variant="sunset"]) .stage__swoosh {
+  scale: none;
+}
+
+/* Die Varianten-Renders haben keinen transparenten Rand – vertikal auf die
+   Mitte der Standard-Tastatur ausgerichtet */
+.stage[data-variant="ice-blue"] .stage__keyboard,
+.stage[data-variant="olive"] .stage__keyboard {
+  top: 26.5%;
+}
+
 /* Spitze des Swoosh, die vor der Tastatur liegt */
 .stage__swoosh-tip {
   position: absolute;

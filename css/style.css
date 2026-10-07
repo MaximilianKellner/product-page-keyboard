@@ -713,10 +713,78 @@ a:hover {
   color: var(--color-border);
 }
 
+/* ---------- Technische Daten ---------- */
+
+.specs {
+  padding: var(--space-xl) var(--gutter);
+  scroll-margin-top: 67px; /* Höhe des Sticky-Headers */
+  color: var(--color-header);
+}
+
+/* Überschrift links (bleibt beim Scrollen stehen), Tabelle rechts */
+.specs__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+  grid-template-areas:
+    "header table"
+    ".      note";
+  gap: var(--space-sm) var(--space-lg);
+  align-items: start;
+  max-width: calc(var(--card-max) + var(--product-gap));
+  margin-inline: auto;
+}
+
+.specs__header {
+  grid-area: header;
+  position: sticky;
+  top: calc(67px + var(--space-md));
+}
+
+.specs__table {
+  grid-area: table;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--step-body);
+}
+
+.specs__table th,
+.specs__table td {
+  padding: 12px 0;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid #e2e0e0;
+}
+
+.specs__table th[scope="row"] {
+  width: 40%;
+  padding-right: var(--space-md);
+  font-weight: 400;
+  color: var(--color-muted);
+}
+
+/* Gruppenzeile: Zwischenüberschrift mit kräftiger Linie */
+.specs__group th {
+  padding-top: var(--space-lg);
+  font-family: var(--font-display);
+  font-size: var(--step-label);
+  font-weight: 700;
+  border-bottom: 1.723px solid var(--color-header);
+}
+
+.specs__table tbody:first-of-type .specs__group th {
+  padding-top: 0;
+}
+
+.specs__note {
+  grid-area: note;
+  font-family: var(--font-mono);
+  font-size: var(--step-sku);
+  color: var(--color-muted);
+}
+
 /* ---------- Sections ---------- */
 
 .features,
-.specs,
 .buy {
   padding-block: var(--space-xl);
 }
@@ -767,6 +835,23 @@ a:hover {
   .connectivity__inner {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-md);
+  }
+
+  .specs {
+    padding-block: var(--space-lg);
+  }
+
+  .specs__inner {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "header"
+      "table"
+      "note";
+    gap: var(--space-md);
+  }
+
+  .specs__header {
+    position: static;
   }
 
   .switches__inner {

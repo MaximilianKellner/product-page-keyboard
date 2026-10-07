@@ -4,7 +4,9 @@
   /* Farben */
   --color-page: #ffffff;
   --color-card: #000000;
-  --color-panel: rgb(4 4 4 / 0.9);
+  /* Figma: 90 % #040404 über Schwarz – seit der Lücke liegt das Panel auf
+     Weiß, daher deckend im selben Ton */
+  --color-panel: #040404;
   --color-header: #040404;
   --color-text: #fff6f6;
   --color-muted: #939393;
@@ -28,6 +30,7 @@
   --card-max: 1347px;
   --panel-width: 536px;
   --panel-pad: 37px;
+  --product-gap: 24px; /* Lücke Bild ↔ Panel – geschätzt, Figma-Wert nicht ausgelesen */
   --gutter: 1.5rem;
 
   /* Spacing */
@@ -112,22 +115,36 @@ a:hover {
 
 .hero {
   padding: var(--space-lg) var(--gutter);
+  /* gedrehte Tastatur darf keinen horizontalen Scroll erzeugen */
+  overflow-x: clip;
 }
 
 .product {
   display: grid;
-  grid-template-columns: 1fr var(--panel-width);
-  max-width: var(--card-max);
+  /* minmax(0, …): sonst erzwingt das aspect-ratio der Bühne eine Mindestbreite */
+  grid-template-columns: minmax(0, 1fr) var(--panel-width);
+  gap: var(--product-gap);
+  /* um die Lücke verbreitert, damit die Bühne bei 1440px bei 811×590 bleibt */
+  max-width: calc(var(--card-max) + var(--product-gap));
   margin-inline: auto;
+}
+
+/* Schwarzer Bildblock: streckt sich auf Panel-Höhe, die Bühne sitzt unten,
+   damit der Swoosh auch bei schmaleren Viewports unten herausragt. */
+.product__media {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: end;
   background-color: var(--color-card);
 }
 
-/* Bühne (Bild, Swoosh, Glow) */
+/* Bühne (Bild, Swoosh, Glow)
+   Clippt bewusst nicht: Der Swoosh ragt wie in Figma unten und rechts
+   aus dem schwarzen Block heraus. */
 
 .stage {
   position: relative;
   aspect-ratio: 811 / 590;
-  overflow: hidden;
 }
 
 /* weicher Lichtschein hinter der Tastatur */
@@ -151,20 +168,15 @@ a:hover {
   scale: 1 -1;
 }
 
+/* Das PNG hat oben/unten transparenten Rand – der Figma-Crop schneidet nur
+   dort, daher wird das Bild vollständig gerendert. */
 .stage__keyboard {
   position: absolute;
-  left: 1.17%;
-  top: 26.1%;
-  width: 86.9%;
-  height: 43.7%;
-  overflow: hidden;
-  rotate: 3.12deg;
-}
-
-.stage__keyboard img {
-  width: 100%;
+  left: 1.97%;
+  top: 21.19%;
+  width: 86.93%;
   height: auto;
-  margin-top: -18.6%;
+  rotate: 3.12deg;
 }
 
 /* Spitze des Swoosh, die vor der Tastatur liegt */
@@ -179,10 +191,15 @@ a:hover {
 /* ---------- Panel ---------- */
 
 .panel {
+  /* liegt über dem Swoosh, falls die Lücke schmaler als sein Überstand ist */
+  position: relative;
+  z-index: 1;
   display: grid;
   align-content: start;
-  gap: var(--space-md);
-  padding: 33px var(--panel-pad) var(--panel-pad);
+  gap: 22px;
+  padding: 33px var(--panel-pad) 28px;
+  /* entspricht "line-height: normal" aus Figma – der Reset-Wert 1.5 bläht Pills und CTA auf */
+  line-height: 1.25;
   background-color: var(--color-panel);
 }
 
@@ -190,6 +207,7 @@ a:hover {
   font-family: var(--font-display);
   font-size: var(--step-title);
   font-weight: 700;
+  line-height: 1.24;
 }
 
 .product__sku,
@@ -201,17 +219,17 @@ a:hover {
 }
 
 .product__sku {
-  margin-top: 0.4rem;
+  margin-top: 4px;
+}
+
+.product__pricing {
+  margin-top: 7px;
 }
 
 .price {
   font-family: var(--font-display);
   font-size: var(--step-price);
   font-weight: 700;
-}
-
-.price__note {
-  margin-top: 0.3rem;
 }
 
 .stock-dot {
@@ -228,7 +246,7 @@ a:hover {
 
 .configurator {
   display: grid;
-  gap: var(--space-md);
+  gap: 22px;
 }
 
 .option {
@@ -236,7 +254,7 @@ a:hover {
 }
 
 .option__label {
-  margin-bottom: 0.9rem;
+  margin-bottom: 15px;
   font-size: var(--step-label);
   font-weight: 700;
 }
@@ -261,7 +279,7 @@ a:hover {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 8px 6px;
+  padding: 4px 6px;
   font-size: var(--step-body);
   color: var(--color-border);
   border: 1.723px solid var(--color-border);
@@ -272,7 +290,7 @@ a:hover {
 }
 
 .option--switches .choice {
-  padding-block: 4px;
+  padding-block: 5px;
 }
 
 .choice:hover {
@@ -310,6 +328,7 @@ a:hover {
 
 .option--swatches .option__choices {
   gap: 18px;
+  margin-bottom: 6px;
 }
 
 .swatch {
@@ -336,7 +355,7 @@ a:hover {
 .purchase-block {
   display: grid;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .purchase {
@@ -349,7 +368,7 @@ a:hover {
   align-items: center;
   justify-content: space-between;
   width: 79px;
-  padding: 7px 10px;
+  padding: 5px 10px;
   border: 1.723px solid var(--color-text);
 }
 
@@ -382,7 +401,7 @@ a:hover {
 
 .btn {
   flex: 1;
-  padding: 7px 10px;
+  padding: 5px 10px;
   font-size: var(--step-body);
   letter-spacing: -0.04em;
   transition: opacity var(--duration) var(--ease);
@@ -449,7 +468,7 @@ a:hover {
 
 @media (max-width: 900px) {
   .product {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .hero {

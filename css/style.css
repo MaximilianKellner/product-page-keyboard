@@ -431,6 +431,110 @@ a:hover {
   height: 16px;
 }
 
+/* ---------- Layouts ---------- */
+
+.layouts {
+  padding: var(--space-xl) var(--gutter);
+  color: var(--color-header);
+  scroll-margin-top: 67px; /* Höhe des Sticky-Headers */
+}
+
+.layouts__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 723px);
+  gap: var(--space-lg);
+  align-items: center;
+  max-width: calc(var(--card-max) + var(--product-gap));
+  margin-inline: auto;
+}
+
+.section__eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--step-sku);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+}
+
+.section__title {
+  margin-top: var(--space-xs);
+  font-family: var(--font-display);
+  font-size: var(--step-title);
+  font-weight: 700;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.section__lead {
+  max-width: 42ch;
+  margin-top: var(--space-sm);
+  color: #4a4a4a;
+}
+
+.section__note {
+  margin-top: var(--space-sm);
+  font-size: var(--step-body);
+  color: #4a4a4a;
+}
+
+.section__link {
+  color: var(--color-header);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Grafik hat 723px Originalbreite – nicht hochskalieren */
+.layouts__figure img {
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Knob ---------- */
+
+.knob {
+  padding: var(--space-xl) var(--gutter);
+  scroll-margin-top: 67px; /* Höhe des Sticky-Headers */
+  background-color: var(--color-card);
+}
+
+/* Bild links, Text rechts – gespiegelt zur Layout-Sektion */
+.knob__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 675px) minmax(0, 1fr);
+  gap: var(--space-lg);
+  align-items: center;
+  max-width: calc(var(--card-max) + var(--product-gap));
+  margin-inline: auto;
+}
+
+.knob__figure img {
+  width: 100%;
+  height: auto;
+}
+
+.knob .section__lead {
+  color: var(--color-border);
+}
+
+.knob__list {
+  display: grid;
+  gap: var(--space-md);
+  max-width: 46ch;
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid rgb(255 255 255 / 0.15);
+  font-size: var(--step-body);
+  color: var(--color-border);
+}
+
+.knob__list strong {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--font-display);
+  font-size: var(--step-label);
+  color: var(--color-text);
+}
+
 /* ---------- Sections ---------- */
 
 .features,
@@ -473,6 +577,22 @@ a:hover {
 
   .hero {
     padding-inline: 0;
+  }
+
+  .layouts,
+  .knob {
+    padding-block: var(--space-lg);
+  }
+
+  .knob__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-md);
+  }
+
+  .layouts__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-md);
+    justify-items: center;
   }
 }
 

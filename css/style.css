@@ -623,6 +623,96 @@ a:hover {
   height: auto;
 }
 
+/* ---------- Konnektivität ---------- */
+
+.connectivity {
+  padding: var(--space-xl) var(--gutter);
+  scroll-margin-top: 67px; /* Höhe des Sticky-Headers */
+  background-color: var(--color-card);
+}
+
+/* Bild links, Text rechts – wie bei der Knob-Sektion */
+.connectivity__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-lg);
+  align-items: center;
+  max-width: calc(var(--card-max) + var(--product-gap));
+  margin-inline: auto;
+}
+
+.connectivity__figure img {
+  width: 100%;
+  height: auto;
+}
+
+.connectivity__content {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.connectivity .section__lead {
+  max-width: 560px;
+  color: var(--color-border);
+}
+
+/* Verbindungsarten als Zeilen: Nummer | Titel + Text */
+.connectivity__list {
+  display: grid;
+  border-top: 1px solid rgb(255 255 255 / 0.15);
+}
+
+.connect-card {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  column-gap: var(--space-sm);
+  row-gap: 4px;
+  padding-block: var(--space-sm);
+  border-bottom: 1px solid rgb(255 255 255 / 0.15);
+}
+
+.connect-card__index {
+  grid-row: span 2;
+  padding-top: 0.35em;
+  font-family: var(--font-mono);
+  font-size: var(--step-sku);
+  color: var(--color-muted);
+}
+
+.connect-card__title {
+  font-family: var(--font-display);
+  font-size: var(--step-label);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.connect-card p {
+  max-width: 52ch;
+  font-size: var(--step-body);
+  color: var(--color-border);
+}
+
+/* Akkulaufzeit als große Kennzahl */
+.battery {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-xs) var(--space-md);
+}
+
+.battery__value {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.battery__text {
+  max-width: 42ch;
+  font-size: var(--step-body);
+  color: var(--color-border);
+}
+
 /* ---------- Sections ---------- */
 
 .features,
@@ -669,8 +759,14 @@ a:hover {
 
   .layouts,
   .knob,
-  .switches {
+  .switches,
+  .connectivity {
     padding-block: var(--space-lg);
+  }
+
+  .connectivity__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-md);
   }
 
   .switches__inner {

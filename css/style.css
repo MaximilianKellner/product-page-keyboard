@@ -779,9 +779,115 @@ a:hover {
 
 /* ---------- Sections ---------- */
 
-.features,
 .buy {
   padding-block: var(--space-xl);
+}
+
+/* ---------- Aufbau (Explosionsansicht) ---------- */
+
+/* Die Sektion ist höher als der Viewport; der Sticky-Teil bleibt stehen,
+   während js/exploded.js den Scroll-Fortschritt in Lagenabstände umsetzt. */
+.exploded {
+  height: 320vh;
+  padding-inline: var(--gutter);
+  scroll-margin-top: 67px; /* Höhe des Sticky-Headers */
+  background-color: var(--color-card);
+}
+
+.exploded__sticky {
+  position: sticky;
+  top: 67px;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  height: calc(100vh - 67px);
+  height: calc(100svh - 67px);
+  max-width: calc(var(--card-max) + var(--product-gap));
+  margin-inline: auto;
+  padding-top: var(--space-md);
+}
+
+.exploded .section__lead {
+  color: var(--color-border);
+}
+
+.exploded__stage {
+  min-height: 0;
+}
+
+.exploded__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.exploded__layer[data-inner] {
+  opacity: clamp(0, calc(var(--share, 0) * 8), 1);
+}
+
+.exploded__label {
+  opacity: calc((var(--share, 0) * 1.4 - 0.4) * var(--labels, 1));
+}
+
+.exploded__label path {
+  fill: none;
+  stroke: var(--color-text);
+  stroke-width: 1.5;
+}
+
+.exploded__label text {
+  fill: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 26px;
+}
+
+/* Liste: am Desktop nur für Screenreader, mobil sichtbar */
+.exploded__list {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.exploded.is-static {
+  height: auto;
+  padding-block: var(--space-xl);
+}
+
+.exploded.is-static .exploded__sticky {
+  position: static;
+  height: auto;
+}
+
+.exploded.is-static .exploded__svg {
+  height: auto;
+}
+
+@media (max-width: 700px) {
+  .exploded {
+    height: 260vh;
+  }
+
+  .exploded__label {
+    display: none;
+  }
+
+  .exploded__list {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+    white-space: normal;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px var(--space-sm);
+    padding-bottom: var(--space-lg);
+    font-size: var(--step-body);
+    color: var(--color-border);
+    list-style: decimal inside;
+  }
 }
 
 /* ---------- Footer ---------- */

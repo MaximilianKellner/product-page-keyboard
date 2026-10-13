@@ -1,5 +1,7 @@
 "use strict";
 
+import { initExploded } from "./exploded.js";
+
 /* ---------- Helpers ---------- */
 
 const $ = (selector, scope = document) => scope.querySelector(selector);
@@ -75,6 +77,7 @@ function initColorVariants() {
 
 function init() {
   initColorVariants();
+  initExploded();
 }
 
 document.addEventListener("DOMContentLoaded", init);

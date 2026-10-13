@@ -552,15 +552,113 @@ export function initExploded() {
     return;
   }
 
-  let frame = 0;
-  const update = () => {
-    frame = 0;
+  /* Zwei Antriebe: Scrollen (Standard) oder die Buttons. Wer nach Play/Reset
+     merklich weiterscrollt, gibt die Steuerung wieder ans Scrollen zurück. */
+  const DURATION = 5000; // ms für einmal ganz auseinander
+  const controls = section.querySelector("[data-exploded-controls]");
+  const playButton = controls.querySelector("[data-exploded-play]");
+  const resetButton = controls.querySelector("[data-exploded-reset]");
+  controls.hidden = false;
+
+  let progress = 0;
+  let manual = false; // Buttons steuern, Scrollen wird ignoriert
+  let manualScroll = 0;
+  let playing = false;
+  let playFrame = 0;
+  let last = 0;
+
+  const setPlaying = (state) => {
+    playing = state;
+    playButton.querySelector("[data-icon]").textContent = state ? "❚❚" : "▶";
+    playButton.querySelector("[data-label]").textContent = state ? "Pause" : "Abspielen";
+    playButton.setAttribute("aria-pressed", String(state));
+    if (!state) {
+      cancelAnimationFrame(playFrame);
+      playFrame = 0;
+    }
+  };
+
+  const takeOver = () => {
+    cancelAnimationFrame(catchFrame);
+    catchFrame = 0;
+    catchUp = false;
+    manual = true;
+    manualScroll = window.scrollY;
+  };
+
+  const step = (now) => {
+    const dt = last ? now - last : 16;
+    last = now;
+    progress = Math.min(1, progress + dt / DURATION);
+    render(progress);
+    if (progress >= 1) setPlaying(false);
+    else playFrame = requestAnimationFrame(step);
+  };
+
+  playButton.addEventListener("click", () => {
+    takeOver();
+    if (playing) {
+      setPlaying(false);
+      return;
+    }
+    if (progress >= 1) progress = 0; // am Ende: von vorn
+    setPlaying(true);
+    last = 0;
+    playFrame = requestAnimationFrame(step);
+  });
+
+  resetButton.addEventListener("click", () => {
+    takeOver();
+    setPlaying(false);
+    progress = 0;
+    render(0);
+  });
+
+  // Nach Play/Reset springt das Scrollen nicht hart auf seinen Stand,
+  // sondern der Fortschritt läuft schnell dorthin nach
+  let catchUp = false;
+  let catchFrame = 0;
+  let catchLast = 0;
+  const scrollProgress = () => {
     const box = section.getBoundingClientRect();
     const sticky = stage.parentElement;
     // 0, sobald der Sticky-Teil andockt, 1, wenn er sich wieder löst
     const offset = parseFloat(getComputedStyle(sticky).top) || 0;
     const range = box.height - sticky.offsetHeight;
-    const progress = range > 0 ? Math.min(1, Math.max(0, (offset - box.top) / range)) : 1;
+    return range > 0 ? Math.min(1, Math.max(0, (offset - box.top) / range)) : 1;
+  };
+  const follow = (now) => {
+    const dt = catchLast ? Math.min(now - catchLast, 50) : 16;
+    catchLast = now;
+    const target = scrollProgress();
+    progress += (target - progress) * (1 - Math.exp(-dt / 140));
+    if (Math.abs(target - progress) < 0.002) {
+      progress = target;
+      catchUp = false;
+      catchFrame = 0;
+    } else {
+      catchFrame = requestAnimationFrame(follow);
+    }
+    render(progress);
+  };
+
+  let frame = 0;
+  const update = () => {
+    frame = 0;
+    if (manual) {
+      if (Math.abs(window.scrollY - manualScroll) < 40) return;
+      manual = false;
+      setPlaying(false);
+      catchUp = true;
+    }
+    if (catchUp) {
+      if (!catchFrame) {
+        catchLast = 0;
+        catchFrame = requestAnimationFrame(follow);
+      }
+      return;
+    }
+    progress = scrollProgress();
     render(progress);
   };
   const request = () => {

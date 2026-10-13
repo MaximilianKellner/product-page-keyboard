@@ -1,5 +1,8 @@
 # Product Page — Keychron Q6 Max
 
+<img width="1920" height="919" alt="grafik" src="https://github.com/user-attachments/assets/08bca879-5166-45d4-9e01-57a32092c281" />
+
+
 Übungsprojekt: eine Produktseite als statische Website, umgesetzt aus einem
 eigenen Figma-Entwurf. Fokus liegt auf Layout, Design-Tokens und einem
 Konfigurator, der ohne JavaScript auskommt.

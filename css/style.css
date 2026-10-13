@@ -4,9 +4,6 @@
   /* Farben */
   --color-page: #ffffff;
   --color-card: #000000;
-  /* Figma: 90 % #040404 über Schwarz – seit der Lücke liegt das Panel auf
-     Weiß, daher deckend im selben Ton */
-  --color-panel: #040404;
   --color-header: #040404;
   --color-text: #fff6f6;
   --color-muted: #939393;
@@ -117,6 +114,8 @@ a:hover {
   padding: var(--space-lg) var(--gutter);
   /* gedrehte Tastatur darf keinen horizontalen Scroll erzeugen */
   overflow-x: clip;
+  /* durchgehend schwarz: Bild und Panel stehen nicht mehr als eigene Boxen */
+  background-color: var(--color-card);
 }
 
 .product {
@@ -129,18 +128,16 @@ a:hover {
   margin-inline: auto;
 }
 
-/* Schwarzer Bildblock: streckt sich auf Panel-Höhe, die Bühne sitzt unten,
-   damit der Swoosh auch bei schmaleren Viewports unten herausragt. */
+/* Bildblock: streckt sich auf Panel-Höhe, die Bühne sitzt unten. */
 .product__media {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   align-content: end;
-  background-color: var(--color-card);
 }
 
 /* Bühne (Bild, Swoosh, Glow)
    Clippt bewusst nicht: Der Swoosh ragt wie in Figma unten und rechts
-   aus dem schwarzen Block heraus. */
+   über die Bühne hinaus. */
 
 .stage {
   position: relative;
@@ -214,7 +211,6 @@ a:hover {
   padding: 33px var(--panel-pad) 28px;
   /* entspricht "line-height: normal" aus Figma – der Reset-Wert 1.5 bläht Pills und CTA auf */
   line-height: 1.25;
-  background-color: var(--color-panel);
 }
 
 .product__title {

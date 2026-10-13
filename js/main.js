@@ -57,12 +57,18 @@ function initColorVariants() {
     input.addEventListener("change", () => showVariant(input.value));
   });
 
-  // Bilder der anderen Varianten vorladen, damit der Wechsel ohne Flackern läuft
-  Object.values(VARIANTS).forEach(({ keyboard, swoosh, tip }) => {
-    [keyboard[0], swoosh[0], tip].forEach((file) => {
-      new Image().src = file;
+  // Bilder der anderen Varianten vorladen, damit der Wechsel ohne Flackern läuft –
+  // erst nach dem Seiten-Load, damit sie nicht mit dem Hero-Bild konkurrieren
+  const preload = () => {
+    Object.values(VARIANTS).forEach(({ keyboard, swoosh, tip }) => {
+      [keyboard[0], swoosh[0], tip].forEach((file) => {
+        new Image().src = file;
+      });
     });
-  });
+  };
+
+  if (document.readyState === "complete") preload();
+  else window.addEventListener("load", preload, { once: true });
 }
 
 /* ---------- Init ---------- */

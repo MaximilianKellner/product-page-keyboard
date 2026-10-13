@@ -4,7 +4,7 @@
 
 /* ---------- Projektion ---------- */
 
-const VB = { w: 1600, h: 1080 };
+const VB = { w: 1600, h: 1220 }; // Höhe mit Luft oben und unten für Knopf und Unterteil
 const SCALE = 1.85; // px pro mm
 const YAW = (18 * Math.PI) / 180; // Tastatur gedreht: rechtes Ende kommt nach vorn
 const ELEVATION = (13 * Math.PI) / 180; // Blick leicht von oben
@@ -478,7 +478,6 @@ LAYERS.forEach((layer, index) => {
   layer.side = layer.anchor ? Object.keys(layer.anchor)[0] : index % 2 === 0 ? "left" : "right";
 });
 // Kamera: die Mitte des zerlegten Stapels wandert in die Bildmitte
-const CAMERA_SHIFT = (BOTTOM_WORLD + 16 + (N - 1) * GAP + 13) / 2 - 22;
 
 /* ---------- SVG ---------- */
 
@@ -524,15 +523,20 @@ export function initExploded() {
   narrow.addEventListener("change", fit);
 
   function render(progress) {
-    const shift = smooth(0, 1, progress) * CAMERA_SHIFT;
+    const shares = LAYERS.map((_, index) => {
+      // obere Lagen lösen sich zuerst
+      const start = ((N - 1 - index) / (N - 1)) * 0.3;
+      return smooth(start, start + 0.7, progress);
+    });
+    // Kamera hält den Stapel in jedem Moment mittig: Mitte zwischen Unterteil und Knopf
+    const lifted = (index) => LAYERS[index].z + shares[index] * (LAYERS[index].explodedZ - LAYERS[index].z);
+    const shift = (lifted(0) + lifted(N - 1) - LAYERS[0].z - LAYERS[N - 1].z) / 2;
     // zusammengebaut näher heran, zerlegt passt der ganze Stapel ins Bild
     const zoom = 1.45 - 0.45 * smooth(0, 0.6, progress);
     camera.setAttribute("transform", `translate(${VB.w / 2} ${VB.h / 2}) scale(${zoom.toFixed(4)}) translate(${-VB.w / 2} ${-VB.h / 2})`);
     groups.forEach((group, index) => {
       const layer = LAYERS[index];
-      // obere Lagen lösen sich zuerst
-      const start = ((N - 1 - index) / (N - 1)) * 0.3;
-      const share = smooth(start, start + 0.7, progress);
+      const share = shares[index];
       const lift = share * (layer.explodedZ - layer.z) - shift;
       group.setAttribute("transform", `translate(0 ${(-lift * SCALE).toFixed(2)})`);
       group.style.setProperty("--share", share.toFixed(3));

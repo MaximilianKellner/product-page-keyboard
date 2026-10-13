@@ -13,21 +13,21 @@ const asset = (file) => new URL(`../assets/images/${file}`, import.meta.url).hre
 // Bilder je Farbe. Fehlt eine Farbe (z. B. Violet), bleibt die Standardvariante.
 const VARIANTS = {
   sunset: {
-    keyboard: [asset("keyboard.png"), 1752, 897],
-    swoosh: [asset("swoosh.svg"), 729, 375],
+    keyboard: [asset("keyboard.webp"), 1719, 709],
+    swoosh: [asset("swoosh.webp"), 1745, 899],
     tip: asset("swoosh-tip.svg"),
     alt: "Keychron Q6 Max in Schwarz mit roten, weißen und orangen Keycaps, schräg von oben",
   },
   "ice-blue": {
-    keyboard: [asset("keyboard-blue.webp"), 1787, 735],
-    swoosh: [asset("swoosh-blue.png"), 729, 376],
-    tip: asset("swoosh-tip-blue.svg"),
+    keyboard: [asset("keyboard-blue.webp"), 1718, 710],
+    swoosh: [asset("swoosh-blue.webp"), 1745, 899],
+    tip: asset("swoosh-tip-blue.png"),
     alt: "Keychron Q6 Max in Schwarz mit weißen, hellblauen und dunkelblauen Keycaps, schräg von oben",
   },
   olive: {
-    keyboard: [asset("keyboard-olive.webp"), 1859, 772],
-    swoosh: [asset("swoosh-olive.png"), 793, 409],
-    tip: asset("swoosh-tip-olive.svg"),
+    keyboard: [asset("keyboard-olive.webp"), 1693, 703],
+    swoosh: [asset("swoosh-olive.webp"), 1745, 899],
+    tip: asset("swoosh-tip-olive.png"),
     alt: "Keychron Q6 Max in Schwarz mit weißen und olivgrünen Keycaps, schräg von oben",
   },
 };
@@ -43,8 +43,6 @@ function showVariant(color) {
   const stage = $(".stage");
   const keyboard = $(".stage__keyboard", stage);
 
-  // Positionierung je Variante steuert das CSS über data-variant
-  stage.dataset.variant = VARIANTS[color] ? color : "sunset";
   setImage(keyboard, variant.keyboard);
   setImage($(".stage__swoosh", stage), variant.swoosh);
   $(".stage__swoosh-tip", stage).src = variant.tip;

@@ -162,32 +162,17 @@ a:hover {
   top: 41.36%;
   width: 89.85%;
   height: auto;
-  scale: 1 -1;
 }
 
-/* Das PNG hat oben/unten transparenten Rand – der Figma-Crop schneidet nur
-   dort, daher wird das Bild vollständig gerendert. */
+/* Die Renders haben keinen transparenten Rand – vertikal so gesetzt, dass
+   die Tastatur dort sitzt, wo sie im Figma-Crop liegt. */
 .stage__keyboard {
   position: absolute;
   left: 1.97%;
-  top: 21.19%;
+  top: 26.5%;
   width: 86.93%;
   height: auto;
   rotate: 3.12deg;
-}
-
-/* Farbvarianten (Bildtausch in js/main.js) */
-
-/* Die PNG-Swooshes sind bereits gespiegelt exportiert */
-.stage:not([data-variant="sunset"]) .stage__swoosh {
-  scale: none;
-}
-
-/* Die Varianten-Renders haben keinen transparenten Rand – vertikal auf die
-   Mitte der Standard-Tastatur ausgerichtet */
-.stage[data-variant="ice-blue"] .stage__keyboard,
-.stage[data-variant="olive"] .stage__keyboard {
-  top: 26.5%;
 }
 
 /* Spitze des Swoosh, die vor der Tastatur liegt */
